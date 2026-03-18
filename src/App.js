@@ -21,23 +21,48 @@ const Counter = () => {
   const handleCountIncrease = () => {
     setCount((c) => c + step);
   };
-  const handleStepDecrease = () => {
-    setStep((s) => s - 1);
+  // const handleStepDecrease = () => {
+  //   setStep((s) => s - 1);
+  // };
+  // const handleStepIncrease = () => {
+  //   setStep((s) => s + 1);
+  // };
+  const handleSetStep = (e) => {
+    setStep(Number(e.target.value));
   };
-  const handleStepIncrease = () => {
-    setStep((s) => s + 1);
+
+  const handleInput = (e) => {
+    setCount(Number(e.target.value));
+  };
+
+  const handleReset = () => {
+    setCount(0);
+    setStep(1);
   };
 
   return (
     <div>
       <div>
+        <span>Step</span>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={step}
+          onChange={handleSetStep}
+        />
+        <span>{step}</span>
+        {/*
+        step buttons [-][+] from previous version:
         <button onClick={handleStepDecrease}>-</button>
         <span>Step: {step}</span>
-        <button onClick={handleStepIncrease}>+</button>
+        <button onClick={handleStepIncrease}>+</button> 
+        */}
       </div>
       <div>
         <button onClick={handleCountDecrease}>-</button>
-        <span>Count: {count}</span>
+        {/* <span>Count: {count}</span> */}
+        <input type="number" value={count} onChange={handleInput} />
         <button onClick={handleCountIncrease}>+</button>
       </div>
       <p>
@@ -52,6 +77,9 @@ const Counter = () => {
         </span>
         <span>{date.toDateString()}</span>
       </p>
+      {(step !== 1 || count !== 0) && (
+        <button onClick={handleReset}>Reset</button>
+      )}
     </div>
   );
 };
